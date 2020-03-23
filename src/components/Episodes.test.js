@@ -18,7 +18,7 @@ test("renders without errors", () => {
     expect(queryByTestId(/error-message/i)).toBeInTheDocument();
   });
 
-const ep = [
+const mockShowData = [
     {
       id: 553946,
       url:
@@ -48,7 +48,7 @@ const ep = [
     );
     expect(queryAllByTestId(/episodesTest/i)).toHaveLength(0);
   
-    rerender(<Episodes episodes={ep} error="" />);
+    rerender(<Episodes episodes={mockShowData} error="" />);
     expect(queryAllByTestId(/episodesTest/i)).toHaveLength(1);
     expect(queryByTestId(/error-message/i)).toBeNull();
   });
