@@ -1,6 +1,5 @@
 import React from 'react';
-import Episodes from './Episodes';
-import {render, fireEvent, waitFor} from '@testing-library/react';
+import {render, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 import {fetchShow as mockFetchShow} from './api/fetchShow';
@@ -36,17 +35,17 @@ const showData = {
 test("clicking on the button fetches data and renders it to the DOM", async () => {
     mockFetchShow.mockResolvedValueOnce(showData);
    
-    const { getByText, queryAllByTestId } = render(<App />);
-  
-    userEvent.click(getByText(/get data/i));
+    const { getByText, queryAllByRole } = render(<App />);
 
-    await waitFor(() =>
-      // query for the missions array / assert that it is rendered
-      expect(queryAllByTestId(/episodesTest/i)).toHaveLength(1)
-    );
+    await waitFor(() => {});
+    expect(mockFetchShow).toHaveBeenCalledTimes(1);
+  
+    userEvent.click(getByText(/select a season/i));
   
     // can also do other assertions out here. Await means this code won't run until the promise resolves
-    expect(mockFetchShow).toHaveBeenCalledTimes(1);
+    const options = queryAllByRole(/option/i);
+    expect(options).toHaveLength(1);
+    expect(options[0]).toHaveTextContent("Season 1");
   });
 
 
