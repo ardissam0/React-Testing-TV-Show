@@ -1,24 +1,17 @@
 import React from 'react';
 import Episodes from './Episodes';
-import {render} from '@testing-library/react';
+import {render, queryByTestId} from '@testing-library/react';
 
 test("renders without errors", () => {
-    render(<Episodes episodes={[]} error="" />);
+    const {queryByTestId} =
+    render(<Episodes episodes={[]} />);
+    const element = queryByTestId(/episodesTest/i);
+    expect(element.childNodes).toHaveLength(0);
   });
   
-  test("renders error message if error is present", () => {
-    const { queryByTestId, rerender } = render(
-      <Episodes episodes={[]} error="" />
-    );
-
-    expect(queryByTestId(/error-message/i)).toBeNull();
-  
-    rerender(<Episodes episodes={[]} error="Some error message" />);
-  
-    expect(queryByTestId(/error-message/i)).toBeInTheDocument();
-  });
-
-const mockShowData = [
+  test("renders episodes correctly", () => {
+    const {queryAllByTestId} = 
+        render(<Episodes episodes={[
     {
       id: 553946,
       url:
@@ -40,15 +33,9 @@ const mockShowData = [
         "<p>A young boy mysteriously disappears, and his panicked mother demands that the police find him. Meanwhile, the boy's friends conduct their own search, and meet a mysterious girl in the forest.</p>",
       _links: { self: { href: 'http://api.tvmaze.com/episodes/553946' } }
     }
-  ];
+  ]} />);
 
-  test("Episodes render the list of tv shows", () => {
-    const { queryAllByTestId, queryByTestId, rerender } = render(
-      <Episodes episodes={[]} error="" />
-    );
-    expect(queryAllByTestId(/episodesTest/i)).toHaveLength(0);
-  
-    rerender(<Episodes episodes={mockShowData} error="" />);
-    expect(queryAllByTestId(/episodesTest/i)).toHaveLength(1);
-    expect(queryByTestId(/error-message/i)).toBeNull();
-  });
+  const episodeNum= queryAllByTestId(/episodeNumTest/i);
+  expect(episodeNum).toHaveLength(1);
+  expect(episodeNum[0]).toHaveTextContent("Season 1");
+});

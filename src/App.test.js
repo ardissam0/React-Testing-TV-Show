@@ -42,11 +42,11 @@ test("clicking on the button fetches data and renders it to the DOM", async () =
 
     await waitFor(() =>
       // query for the missions array / assert that it is rendered
-      expect(queryAllByTestId(/mission-list/i)).toHaveLength(3)
+      expect(queryAllByTestId(/episodesTest/i)).toHaveLength(1)
     );
   
     // can also do other assertions out here. Await means this code won't run until the promise resolves
-    expect(mockFetchMissions).toHaveBeenCalledTimes(1);
+    expect(mockFetchShow).toHaveBeenCalledTimes(1);
   });
 
 

@@ -3,20 +3,14 @@ import parse from 'html-react-parser';
 
 export default function Episodes(props) {
   return (
-    <section className="episodes">
-      {props.error ? (
-        <div data-testid='error-message' className='error'>
-          {props.error}
-        </div>
-      ) : (
-        <div className='episodes'>
+        <div data-testid='episodesTest' className='episodes'>
       {props.episodes.map(e => (
-        <div data-testid='episodesTest' className="episode" key={e.id}>
+        <div className="episode" key={e.id}>
           {e.image && (
             <img className="episode-image" src={e.image.medium} alt={e.name} />
           )}
           <div className="episode-info">
-            <p className="episode-number">
+            <p data-testid="episodeNumTest" className="episode-number">
               Season {e.season}, Episode {e.number}
             </p>
             <h3>{e.name}</h3>
@@ -27,7 +21,5 @@ export default function Episodes(props) {
           </div> 
       ))}
       </div>
-      )}
-    </section>
-  );
-}
+      );
+    };
