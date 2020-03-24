@@ -35,17 +35,17 @@ const showData = {
 test("clicking on the button fetches data and renders it to the DOM", async () => {
     mockFetchShow.mockResolvedValueOnce(showData);
    
-    const { getByText, queryAllByRole } = render(<App />);
+    const { getByText, getAllByText } = render(<App />);
 
-    await waitFor(() => {});
-    expect(mockFetchShow).toHaveBeenCalledTimes(1);
-  
+    await wait(() => {
+      getByText(/select a season/i);
+    });
     userEvent.click(getByText(/select a season/i));
-  
     // can also do other assertions out here. Await means this code won't run until the promise resolves
-    const options = queryAllByRole(/option/i);
+    const options = getAllByText(/option/i);
     expect(options).toHaveLength(1);
     expect(options[0]).toHaveTextContent("Season 1");
+    expect(mockFetchShow).toHaveBeenCalledTimes(1);
   });
 
 

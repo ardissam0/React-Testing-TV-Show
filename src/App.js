@@ -15,6 +15,8 @@ export default function App() {
   const [selectedSeason, setSelectedSeason] = useState("");
   const episodes = seasons[selectedSeason] || [];
 
+  //set state in useEffect
+  //set data again
   useEffect(() => {
     fetchShow().then(res => {
       setShow(res.data);

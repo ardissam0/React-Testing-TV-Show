@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+//Create a directory in the src directory
+//move fetchShow from App --> into file fetchShow
+//return axios call
 export const fetchShow = () => {
     return axios
       .get(
